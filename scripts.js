@@ -23,10 +23,11 @@ function login() {
         function (response) {
             let obj = JSON.parse(response)
             state.user= obj[0];
-            console.log(state.user);
+            
             let html = state.user.name
             render('userName', html)
-            msg_request();            
+            msg_request(); 
+            startRealTime();           
         }    
     );
     
@@ -65,7 +66,7 @@ function msgSend() {
      $.post(url, data,
          function (response) {
              state.messageList = JSON.parse(response)
-             console.log(state.messageList)
+             
              let html = '';
              state.MessageList = []
             for (let i = 0; i < state.messageList.length; i++)
@@ -78,7 +79,8 @@ function msgSend() {
                         <div class="teacher">to: ${state.messageList[i].to}</div>
                         </li>`
                 } 
-            render('messagesList',html)        
+            render('messagesList',html) 
+                  
          }    
      );
      
@@ -93,7 +95,7 @@ function msgSend() {
     $.post(url, data,
         function (response) {
             state.teachersList = JSON.parse(response)
-            console.log(state.teachersList)
+           
              let html = '';
         
             for (let i = 0; i < state.teachersList.length; i++)
@@ -104,7 +106,7 @@ function msgSend() {
                         
                         `
                 } 
-            console.log(html)
+           
             render('teachersList', html)        
         }    
     );
@@ -115,8 +117,33 @@ teachers_request();
 //INTERVAL REAL TIME
 
 function startRealTime() {
-    store.realTimeInterval = setInterval (function(){
-        getMessages()
+    state.realTimeInterval = setInterval (function(){
+        let data = {
+            userId: state.user.id
+        }
+    
+        let url = 'controlers/controler-list-messages.php'
+        $.post(url, data,
+            function (response) {
+                let newMessageList = JSON.parse(response)
+                console.log(newMessageList)
+                if (newMessageList === state.messageList)
+                { return }
+                html = ''
+                state.messageList = newMessageList
+                for (let i = 0; i < state.messageList.length; i++)
+                {
+                    
+                    html += `<li>
+                        <div class="team">${state.messageList[i].team}</div>
+                        <div class="text">${state.messageList[i].text}</div>
+                        <div class="coder">from: ${state.messageList[i].from}</div>
+                        <div class="teacher">to: ${state.messageList[i].to}</div>
+                        </li>`
+                } 
+            render('messagesList',html)       
+            }    
+        );
     }, 1000)
 }
 

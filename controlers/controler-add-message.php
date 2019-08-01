@@ -19,6 +19,6 @@ $query = "INSERT INTO `messages` (`text`, `done`, `id_coders`, `id_teachers`) VA
 
 $execute = mysqli_query($conexion, $query);
 
-$conexion->close();
 
+mysqli_close( $conexion );
 ?>
