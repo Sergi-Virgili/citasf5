@@ -8,5 +8,5 @@ $query =  "DELETE FROM `messages` WHERE `messages`.`id` = $id";
 
 $execute = mysqli_query( $conexion, $query );
 
-
+mysqli_close( $conexion );
 ?>
