@@ -21,17 +21,13 @@ echo '
 		<ul id="messagesList"><ul>
 
 
-		<section id="sendSection">
-            
-            <input id = "sendText" type="text-area">
-            <button id = "sendButton" onClick="msgSend()">Send</button>
-		</section>
+		
     </div>
     <section id="sendSection">
         <select id="teachersList">
         
         </select>
-        <input id = "sendText" type="text-area">
+        <textarea id = "sendText" type="text-area" rows="4" cols="30"></textarea>
         <button id = "sendButton" onClick="msgSend()">Send</button>
     </section>
     

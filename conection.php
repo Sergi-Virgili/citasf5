@@ -11,13 +11,4 @@ $db = mysqli_select_db( $conexion, $db ) or die ( "No se ha podido conectar a la
 
 
 
-// $query = "SELECT * FROM coders";
-
-// $resultado = mysqli_query( $conexion, $query );
-
-// while ($coder = mysqli_fetch_array( $resultado )){
-// print($coder['name']);
-// };
-// $res->free();
-
 ?>

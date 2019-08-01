@@ -1,6 +1,6 @@
 <?php
 
-require_once '../conection.php';
+require_once '../objects/messages.php';
 
  
 //  $idCoder = '1';
@@ -12,12 +12,13 @@ require_once '../conection.php';
  $text = $_POST['text'];
 $done = '1';
 
+$msg = new Message();
+$msg->newMessage($text, $idCoder, $idTeacher);
+// $query = "INSERT INTO `messages` (`text`, `done`, `id_coders`, `id_teachers`) VALUES ( '$text', '$done', '$idCoder', '$idTeacher');";
 
-$query = "INSERT INTO `messages` (`text`, `done`, `id_coders`, `id_teachers`) VALUES ( '$text', '$done', '$idCoder', '$idTeacher');";
 
 
-
-$execute = mysqli_query($conexion, $query);
+// $execute = mysqli_query($conexion, $query);
 
 
 mysqli_close( $conexion );

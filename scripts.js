@@ -1,5 +1,4 @@
 
-
 const state = {
     user: null,
     
@@ -11,9 +10,8 @@ const state = {
 
 //funcion login post controler login
 
-
 function login() {
- 
+    
     let data = {
         userName: $('#loginName').val()
     }
@@ -26,7 +24,7 @@ function login() {
             
             let html = state.user.name
             render('userName', html)
-            msg_request(); 
+           // msg_request(); 
             startRealTime();           
         }    
     );
@@ -45,7 +43,7 @@ function msgSend() {
     let url = 'controlers/controler-add-message.php'
     $.post(url, data,
         function (response) {
-            msg_request();    
+            $('#sendText').val() = ''    
                    
         }    
     );
@@ -56,35 +54,35 @@ function msgSend() {
     component.innerHTML = html
  }
 
- function msg_request() {
+//  function msg_request() {
   
-     let data = {
-         userId: state.user.id
-     }
+//      let data = {
+//          userId: state.user.id
+//      }
  
-     let url = 'controlers/controler-list-messages.php'
-     $.post(url, data,
-         function (response) {
-             state.messageList = JSON.parse(response)
+//      let url = 'controlers/controler-list-messages.php'
+//      $.post(url, data,
+//          function (response) {
+//              state.messageList = JSON.parse(response)
              
-             let html = '';
-             state.MessageList = []
-            for (let i = 0; i < state.messageList.length; i++)
-                {
+//              let html = '';
+//             //  state.MessageList = []
+//             for (let i = 0; i < state.messageList.length; i++)
+//                 {
                     
-                    html += `<li>
-                        <div class="team">${state.messageList[i].team}</div>
-                        <div class="text">${state.messageList[i].text}</div>
-                        <div class="coder">from: ${state.messageList[i].from}</div>
-                        <div class="teacher">to: ${state.messageList[i].to}</div>
-                        </li>`
-                } 
-            render('messagesList',html) 
+//                     html += `<li>
+//                         <div class="team">${state.messageList[i].team}</div>
+//                         <div class="text">${state.messageList[i].text}</div>
+//                         <div class="coder">from: ${state.messageList[i].from}</div>
+//                         <div class="teacher">to: ${state.messageList[i].to}</div>
+//                         </li>`
+//                 } 
+//             render('messagesList',html) 
                   
-         }    
-     );
+//          }    
+//      );
      
- }
+//  }
  function teachers_request() {
   
     let data = {
@@ -134,11 +132,13 @@ function startRealTime() {
                 for (let i = 0; i < state.messageList.length; i++)
                 {
                     
-                    html += `<li>
+                    html += `<li class="message">
+                    
                         <div class="team">${state.messageList[i].team}</div>
                         <div class="text">${state.messageList[i].text}</div>
                         <div class="coder">from: ${state.messageList[i].from}</div>
                         <div class="teacher">to: ${state.messageList[i].to}</div>
+                        <a href="#" onClick = "deleteMsg(${state.messageList[i].id})">delete</a>
                         </li>`
                 } 
             render('messagesList',html)       
@@ -147,4 +147,18 @@ function startRealTime() {
     }, 1000)
 }
 
-//startRealTime();
+function deleteMsg(idMsg) {
+
+    
+    let data = {
+       idMsg : idMsg
+    }
+
+    let url = 'controlers/controler-delete-message.php'
+    $.post(url, data,
+        function (response) {
+                   
+        }    
+    );
+
+}

@@ -1,12 +1,11 @@
 <?php
 
-require_once '../conection.php';
+require_once '../objects/messages.php';
 
-$id = 5;
+$id = $_POST['idMsg'];
 
-$query =  "DELETE FROM `messages` WHERE `messages`.`id` = $id";
+$msg = new Message();
+$msg->deleteMsg($id);
 
-$execute = mysqli_query( $conexion, $query );
 
-mysqli_close( $conexion );
 ?>
